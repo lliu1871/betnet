@@ -2,10 +2,9 @@
 
 1. Download the package from GitHub
 2. To add the local library betnet, run "] add path-to-betnet" in Julia
-3.
+3. To analyze a real dataset, run the following code
 
-# Temporal Data
-
+    # Temporal Data
     testDDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/time_real_data.csv")))
     testDD = testDDD[:,3:5]
     testD = zeros(Float64,length(testDDD[:,1]),3)
