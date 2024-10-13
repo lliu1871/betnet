@@ -1,8 +1,8 @@
 # betnet
 
-1. Download the package from GitHub
-2. To add the local library betnet, run "] add path-to-betnet" in Julia
-3. To analyze a real dataset, run the following code
+step1: Download the package from GitHub
+step2: To add the local library betnet, run "] add path-to-betnet" in Julia
+step3: To analyze a real dataset, run the following code
 
 The datasets time_real_data.csv and SNP_real_data.csv are available in the folder "test"
 
