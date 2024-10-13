@@ -2,8 +2,9 @@
 
 1. Download the package from GitHub
 2. To add the local library betnet, run "] add path-to-betnet" in Julia
+3. To analyze a real dataset, run the following code
 
-To analyze a real dataset, run the following code
+The datasets time_real_data.csv and SNP_real_data.csv are available in the folder "test"
 
     testDDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/time_real_data.csv")))
     testDD = testDDD[:,3:5]
