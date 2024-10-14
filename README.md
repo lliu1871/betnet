@@ -1,5 +1,6 @@
 # Bayesian Estimation of Transmission NETworks (betnet)
-A Julia package designed for implementing a Bayesian model to reconstruct transmission networks in infectious diseases.
+This Julia package is designed for implementing a Bayesian model to reconstruct transmission networks in infectious diseases. The Bayesian transmission model combines genomic and temporal data to reconstruct transmission networks for infectious diseases.
+
 
 ## Installation
 ### Local installation
