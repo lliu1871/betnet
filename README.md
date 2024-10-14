@@ -1,16 +1,21 @@
 # Bayesian Estimation of Transmission NETworks (betnet)
 A Julia package designed for implementing a Bayesian model to reconstruct transmission networks in infectious diseases.
 
+## Installation
+### Local installation
+1: Download the package from GitHub
+2: To add the local library betnet, run "] add path-to-betnet" in Julia
+
+### Global installation
+In the package mode, run "add betnet" to add the package in Julia
+
 ## How to run the program
+The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test". To analyze a real dataset, run the following code
 
-step1: Download the package from GitHub
-
-step2: To add the local library betnet, run "] add path-to-betnet" in Julia
-
-step3: To analyze a real dataset, run the following code
-
-The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test"
-
+    using betnet
+    using DataFrames
+    using CSV
+    
     testDDD = Array(DataFrame(CSV.File("time_real_data.csv")))
     testDD = testDDD[:,3:5]
     testD = zeros(Float64,length(testDDD[:,1]),3)
@@ -38,8 +43,19 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
     CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
 
 ## Resources
+- Documentation: https://JuliaStats.github.io/Distributions.jl/stable/
+- Support: We use GitHub for the development of the Julia package Distributions itself. For support and questions, please use the Julia Discourse forum. Also, for casual conversation and quick questions, there are the channels #helpdesk and #statistics in the official Julia chat (https://julialang.slack.com). To get an invitation, please visit https://julialang.org/slack/.
+
 
 
 ## Contributing
+### Workflow with Git and GitHub
+To contribute to the package, fork the repository on GitHub, clone it and make modifications on a new branch, do not commit modifications on master. Once your changes are made, push them on your fork and create the Pull Request on the main repository.
+
+### Citation
+Xu, J., Hu, H., Ellison, G., Yu, L., Whalen C.C., Liu, L. Bayesian estimation of transmission networks for infectious diseases. arXiv:2409.05245 [q-bio.QM] 2024. [DOI link](https://doi.org/10.48550/arXiv.2409.05245) 
+
+
+
 
 
