@@ -1,4 +1,7 @@
 # Bayesian Estimation of Transmission NETworks (betnet)
+A Julia package designed for implementing a Bayesian model to reconstruct transmission networks in infectious diseases.
+
+## How to run the program
 
 step1: Download the package from GitHub
 
@@ -6,16 +9,16 @@ step2: To add the local library betnet, run "] add path-to-betnet" in Julia
 
 step3: To analyze a real dataset, run the following code
 
-The datasets time_real_data.csv and SNP_real_data.csv are available in the folder "test"
+The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test"
 
-    testDDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/time_real_data.csv")))
+    testDDD = Array(DataFrame(CSV.File("time_real_data.csv")))
     testDD = testDDD[:,3:5]
     testD = zeros(Float64,length(testDDD[:,1]),3)
     testD[:,2:3] = float(testDD[:,2:3])/365
     testD[:,1] = float(testDD[:,1])
 
     #SNP Difference Data
-    DDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/SNP_real_data.csv")))
+    DDD = Array(DataFrame(CSV.File("SNP_real_data.csv")))
     DD = DDD[:,2:70]
     D = float(DD)
 
@@ -34,5 +37,9 @@ The datasets time_real_data.csv and SNP_real_data.csv are available in the folde
     CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Para_Net_rd1111.csv", Param_rd_ppp_111_1)
     CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
 
+## Resources
+
+
+## Contributing
 
 
