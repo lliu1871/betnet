@@ -1,4 +1,4 @@
-# betnet
+# Bayesian Estimation of Transmission NETworks (betnet)
 
 step1: Download the package from GitHub
 
