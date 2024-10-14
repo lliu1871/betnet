@@ -38,12 +38,11 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
     #Here input the inferred prediction ID to get the corresponding tb values
     Latent_rd_ppp_111_1 = DataFrame(Tborg(Tb_rd_ppp_111_1,[2:1:69;], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 6, 7, 2, 1, 1, 13, 1, 19, 1, 16, 1, 1, 22, 7, 7, 27, 1, 1, 5, 5, 27, 27, 27, 27, 18, 37, 36, 34, 34, 37, 1, 27, 5, 1, 1, 1, 34, 22, 46, 27, 14, 27, 49, 36, 5, 27, 48, 23, 25, 38, 35, 1, 53, 19, 27, 30, 27]), :auto)
 
-    CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/inf_NetID_rd1111.csv", inf_Net_rd_ppp_111_1)
-    CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Para_Net_rd1111.csv", Param_rd_ppp_111_1)
-    CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
+    CSV.write("inf_NetID_rd1111.csv", inf_Net_rd_ppp_111_1)
+    CSV.write("Para_Net_rd1111.csv", Param_rd_ppp_111_1)
+    CSV.write("Latent_rd1111.csv", Latent_rd_ppp_111_1)
 
 ## Resources
-- Documentation: https://JuliaStats.github.io/Distributions.jl/stable/
 - Support: We use GitHub for the development of the Julia package Distributions itself. For support and questions, please use the Julia Discourse forum. Also, for casual conversation and quick questions, there are the channels #helpdesk and #statistics in the official Julia chat (https://julialang.slack.com). To get an invitation, please visit https://julialang.org/slack/.
 
 
