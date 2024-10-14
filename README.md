@@ -4,11 +4,11 @@ This Julia package is designed for implementing a Bayesian model to reconstruct 
 
 ## Installation
 ### Local installation
-1: Download the package from GitHub
-2: To add the local library betnet, run "] add path-to-betnet" in Julia
+1. Download the package from GitHub
+2. To add the local library betnet, run "] add path-to-betnet" in Julia.
 
 ### Global installation
-In the package mode, run "add betnet" to add the package in Julia
+In the package mode, run "add betnet" to add the package in Julia.
 
 ## How to run the program
 The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test". To analyze a real dataset, run the following code
