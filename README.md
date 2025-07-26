@@ -53,7 +53,7 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
 To contribute to the package, fork the repository on GitHub, clone it and make modifications on a new branch, do not commit modifications on master. Once your changes are made, push them on your fork and create the Pull Request on the main repository.
 
 ### Citation
-Xu, J., Hu, H., Ellison, G., Yu, L., Whalen C.C., Liu, L. Bayesian estimation of transmission networks for infectious diseases. arXiv:2409.05245 [q-bio.QM] 2024. [DOI link](https://doi.org/10.48550/arXiv.2409.05245) 
+Xu, J., Hu, H., Ellison, G., Yu, L., Whalen, C.C., Liu, L.* Bayesian estimation of transmission networks for infectious diseases. J. Math. Biol. 2025, 90(29) [DOI link](https://doi.org/10.1007/s00285-025-02193-1).
 
 
 
