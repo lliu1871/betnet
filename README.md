@@ -10,7 +10,7 @@ This Julia package is designed for implementing a Bayesian model to reconstruct 
 ### Installation from Github
 In the package mode, run "add https://github.com/lliu1871/betnet" to add the package in Julia.
 
-### Global installation
+### Global installation (unavailable)
 In the package mode, run "add betnet" to add the package in Julia.
 
 ## How to run the program
