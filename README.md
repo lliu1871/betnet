@@ -14,7 +14,7 @@ In the package mode, run "add https://github.com/lliu1871/betnet" to add the pac
 In the package mode, run "add betnet" to add the package in Julia.
 
 ## How to run the program
-The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test". To analyze a real dataset, run the following code
+The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "test". To analyze the datasets, run the following Julia code
 
     using betnet
     using DataFrames
