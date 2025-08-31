@@ -12,6 +12,7 @@ module betnet
     export
         #data and tree definition    
         TransNet,
+        TransNet_N,
         Tborg
     include("betnet1.0.jl")
 end # module
