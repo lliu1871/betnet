@@ -9,7 +9,8 @@ module betnet
       
     const ERROR = 1e-5
 
-    export TransNet_N, TransNet, Tborg
-
+    export    TransNet_N,
+        TransNet,
+        Tborg
     include("betnet1.0.jl")
 end # module
