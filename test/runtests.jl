@@ -3,20 +3,20 @@ using DataFrames
 using CSV
 using Test
 
-@testset "betnet.jl" begin
+#@testset "betnet.jl" begin
     #Load the temporal and Genomic Data
     #Test on 69 Patients
 
     #Temporal Data
-    testDDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/time_real_data.csv")))
+    testDDD = Array(DataFrame(CSV.File("./betnet/data/TemporalData1_100.csv")))
     testDD = testDDD[:,3:5]
     testD = zeros(Float64,length(testDDD[:,1]),3)
-    testD[:,2:3] = float(testDD[:,2:3])/365
-    testD[:,1] = float(testDD[:,1])
+    testD[:,2:3] = float(testDDD[:,3:4])
+    testD[:,1] = float(testDDD[:,1])
 
     #SNP Difference Data
-    DDD = Array(DataFrame(CSV.File("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/SNP_real_data.csv")))
-    DD = DDD[:,2:70]
+    DDD = Array(DataFrame(CSV.File("./betnet/data/SNP1_100.csv")))
+    DD = DDD[:,2:101]
     D = float(DD)
 
 
@@ -34,4 +34,4 @@ using Test
     CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Para_Net_rd1111.csv", Param_rd_ppp_111_1)
     CSV.write("/Users/lliu/Library/CloudStorage/OneDrive-UniversityofGeorgia/Dropbox/Github/Julia/betnet/test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
 
-end
+#end
