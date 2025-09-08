@@ -1,5 +1,4 @@
-# Bayesian Estimation of Transmission NETworks 
-# &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(betnet v1.1)
+# Bayesian Estimation of Transmission NETworks &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(betnet v1.1)
 
 This Julia package implements a Bayesian model for reconstructing transmission networks in infectious diseases by integrating genomic and temporal data.
 
