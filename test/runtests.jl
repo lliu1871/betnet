@@ -3,7 +3,7 @@ using DataFrames
 using CSV
 using Test
 
-#@testset "betnet.jl" begin
+@testset "betnet.jl" begin
     #Load the temporal and Genomic Data
     #Test on 69 Patients
 
@@ -66,4 +66,4 @@ using Test
     CSV.write("./test/Latent_1.csv", Latent_rd_ppp_1)
 
 
-#end
+end
