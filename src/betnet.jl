@@ -1,4 +1,4 @@
-module bestNet
+module betnet
     using Distributions
     using BenchmarkTools
     using Base.Threads: @spawn, @threads
@@ -112,5 +112,5 @@ module bestNet
 
     export transNetworkInference
 
-    include("bestNet1.0.jl")
+    include("betnet2.0.jl")
 end # module
