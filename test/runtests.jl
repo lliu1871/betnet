@@ -8,14 +8,14 @@ using Test
     #Test on 69 Patients
 
     #Temporal Data
-    testDDD = Array(DataFrame(CSV.File("./test/time_real_data.csv")))
+    testDDD = Array(DataFrame(CSV.File("./betnet/test/time_real_data.csv")))
     testDD = testDDD[:,3:5]
     testD = zeros(Float64,length(testDDD[:,1]),3)
     testD[:,2:3] = float(testDD[:,2:3])/365
     testD[:,1] = float(testDD[:,1])
 
     #SNP Difference Data
-    DDD = Array(DataFrame(CSV.File("./test/SNP_real_data.csv")))
+    DDD = Array(DataFrame(CSV.File("./betnet/test/SNP_real_data.csv")))
     DD = DDD[:,2:70]
     D = float(DD)
 
@@ -29,19 +29,19 @@ using Test
     #Here input the inferred prediction ID to get the corresponding tb values
     Latent_rd_ppp_111_1 = DataFrame(Tborg(Tb_rd_ppp_111_1,[2:1:69;], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 6, 7, 2, 1, 1, 13, 1, 19, 1, 16, 1, 1, 22, 7, 7, 27, 1, 1, 5, 5, 27, 27, 27, 27, 18, 37, 36, 34, 34, 37, 1, 27, 5, 1, 1, 1, 34, 22, 46, 27, 14, 27, 49, 36, 5, 27, 48, 23, 25, 38, 35, 1, 53, 19, 27, 30, 27]), :auto)
 
-    CSV.write("./test/inf_NetID_rd1111.csv", inf_Net_rd_ppp_111_1)
-    CSV.write("./test/Para_Net_rd1111.csv", Param_rd_ppp_111_1)
-    CSV.write("./test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
+    CSV.write("./betnet/test/inf_NetID_rd1111.csv", inf_Net_rd_ppp_111_1)
+    CSV.write("./betnet/test/Para_Net_rd1111.csv", Param_rd_ppp_111_1)
+    CSV.write("./betnet/test/Latent_rd1111.csv", Latent_rd_ppp_111_1)
 
     #Simulation Data
-    testDDD = Array(DataFrame(CSV.File("./data/TemporalData1_100.csv")))
+    testDDD = Array(DataFrame(CSV.File("./betnet/data/TemporalData1_100.csv")))
     testD = float(testDDD)
 
     #SNP Difference Data
-    DDD = Array(DataFrame(CSV.File("./data/SNP1_100.csv")))
+    DDD = Array(DataFrame(CSV.File("./betnet/data/SNP1_100.csv")))
     D = float(DDD)
 
-    CCC = Array(DataFrame(CSV.File("./data/ContactProb1_100.csv")))
+    CCC = Array(DataFrame(CSV.File("./betnet/data/ContactProb1_100.csv")))
     C = float(CCC)
 
     #run for model with network
@@ -61,9 +61,9 @@ using Test
 
 
     #output the data
-    CSV.write("./test/IMPACT_inf_NetID_Test.csv", inf_Net_ppp_1)
-    CSV.write("./test/IMPACT_Para_Net_Test.csv", Param_ppp_1)
-    CSV.write("./test/Latent_1.csv", Latent_rd_ppp_1)
+    CSV.write("./betnet/test/IMPACT_inf_NetID_Test.csv", inf_Net_ppp_1)
+    CSV.write("./betnet/test/IMPACT_Para_Net_Test.csv", Param_ppp_1)
+    CSV.write("./betnet/test/Latent_1.csv", Latent_rd_ppp_1)
 
 
 end
