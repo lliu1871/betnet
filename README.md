@@ -40,7 +40,7 @@ To contribute to the package, fork the repository on GitHub, clone it and make m
 ### Citation
 Xu, J., Hu, H., Ellison, G., Yu, L., Whalen, C.C., Liu, L. Bayesian estimation of transmission networks for infectious diseases. J. Math. Biol. 2025, 90(29) [DOI link](https://doi.org/10.1007/s00285-025-02193-1).
 
-Xu, J., Kim, J., Ji, P., Yu, L., Whalen, C.C., Liu, L.* A Bayesian framework for the network analysis of transmission dynamics in infectious disease. J Mol Evol 2026. https://doi.org/10.1007/s00239-026-10303-w  
+Xu, J., Kim, J., Ji, P., Yu, L., Whalen, C.C., Liu, L. A Bayesian framework for the network analysis of transmission dynamics in infectious disease. J Mol Evol 2026. https://doi.org/10.1007/s00239-026-10303-w  
 
 
 
