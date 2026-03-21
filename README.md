@@ -15,6 +15,8 @@ In the package mode, run "add betnet" to add the package in Julia.
 ## How to run the program
 The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP distances) are available in the folder "data". To analyze the datasets, run the following Julia code
 
+1. In Julia
+
     using betnet
     
     #Load the temporal and Genomic Data
@@ -24,7 +26,13 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
     @time transNetworkInference(tempfile="./data/TemporalData1_100.csv",SNPfile="./data/SNP1_100.csv",Contactfile="",genomeSize=1000000, itr_MCMC=1000000, burn_in=0,subsample=1000, outputfile="parameter_betnet_nonet.csv")
     
     @time transNetworkInference(tempfile="./data/TemporalData1_100.csv",SNPfile="./data/SNP1_100.csv",Contactfile="./data/ContactProb1_100.csv",genomeSize=1000000, itr_MCMC=1000000, burn_in=0,subsample=1000, outputfile="parameter_betnet_net.csv")
- 
+
+2. The binary betnet2.0.jl is in the latest release
+
+    chmod +x betnet2.0.jl
+    julia betnet2.0.jl --help
+    julia betnet2.0.jl -t TemporalData1_100.csv -s SNP1_100.csv -c ContactProb1_100.csv
+
 ## Output
 In the MCMC output file, the first row contains columns called "iteration",	"logLikelihood", "logPrior", "theta", "mutation_rate", "infection_rate", and each remaining column corresponds to one individual in your dataset. Inside each column, the value = ID of the inferred infector at that MCMC iteration. Since this varies by iteration, you can compute the  posterior probability that A infected B and thereafter find the most likely infector of each case.
 
