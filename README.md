@@ -41,7 +41,7 @@ In the MCMC output file, the first row contains columns called "iteration",	"log
 
 
 ## Resources
-- Simulation: The R package [transNetwork](https://github.com/lliu1871/transNetwork) provide a unified framework for simulating, summarizing, and visualizing infectious disease transmission networks using genomic and epidemiological data
+- Simulation: The R package [transNetwork](https://github.com/lliu1871/transNetwork) provide a unified framework for simulating, summarizing, and visualizing infectious disease transmission networks using genomic and epidemiological data.
 - Support: We use GitHub for the development of the Julia package Distributions itself. For support and questions, please use the Julia Discourse forum. Also, for casual conversation and quick questions, there are the channels #helpdesk and #statistics in the official Julia chat (https://julialang.slack.com). To get an invitation, please visit https://julialang.org/slack/.
 
 ## Contributing
