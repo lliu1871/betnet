@@ -33,7 +33,7 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
 ```{code}
     chmod +x betnet2.0.jl
     julia betnet2.0.jl --help
-    julia betnet2.0.jl -t TemporalData1_100.csv -s SNP1_100.csv -c ContactProb1_100.csv
+    julia betnet2.0.jl -t TemporalData1_100.csv -s SNP1_100.csv -c ContactProb1_100.csv -g 1000000 -i 1000000 -n 1000 -o betnet_output.csv
 ```
 
 ## Output
