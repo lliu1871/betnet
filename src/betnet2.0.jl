@@ -33,7 +33,7 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
     parameters.infectionRate_priorMean = 1.0
 
     # latent period prior mean
-    parameters.latent_priorMean = 0.5 # mean of latent period ~ Chisq(0.5)
+    parameters.latent_priorMean = 0.05 # mean of latent period ~ Chisq(0.5)
     
     # initial infectors with minimum SNP difference
     parameters.Net_infID[1] = 1 # the first case is the index case
