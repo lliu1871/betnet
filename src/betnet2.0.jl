@@ -18,12 +18,16 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
     parameters.theta= rand(Uniform(parameters.theta_lb, parameters.theta_ub))
     parameters.theta_priorMean = 1E-5
    
-    # mutation rate
+    # mutation rate per site per year, 
+    # 1E-7 is a reasonable value for M. tuberculosis based on previous studies
+    # a reasonable assumption is crucial for direct transmission inference, 
+    # since the mutation rate is not identifiable from the data and 
+    # it is highly correlated with theta
     parameters.muRate_lb = 0.0 # lower bound of mu
-    parameters.muRate_ub = 1E-3 # upper bound of mu
+    parameters.muRate_ub = 1E-6 # upper bound of mu
     parameters.muRate_window = (parameters.muRate_ub - parameters.muRate_lb)/100
     parameters.muRate = rand(Uniform(parameters.muRate_lb, parameters.muRate_ub))
-    parameters.muRate_priorMean = 1E-5
+    parameters.muRate_priorMean = 1E-7
     
     # infection rate
     parameters.infectionRate_lb = 0.0 # lower bound of inf
@@ -33,7 +37,7 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
     parameters.infectionRate_priorMean = 1.0
 
     # latent period prior mean
-    parameters.latent_priorMean = 0.05 # mean of latent period ~ Chisq(0.5)
+    parameters.latent_priorMean = 0.5 # mean of latent period ~ Chisq(0.5)
     
     # initial infectors with minimum SNP difference
     parameters.Net_infID[1] = 1 # the first case is the index case
@@ -284,12 +288,21 @@ function moveInfector()
         end
         # check if latent time is 0, if yes, use a small value to calculate logprior to avoid log(0)
         if latent_time_new == 0.0
-            diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
-        elseif latent_time_old == 0.0
-             diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
+            logprior_new = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) 
+        elseif latent_time_new >= 2.0
+            logprior_new = -100000.0
+        else    
+            logprior_new = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) 
+        end
+
+        if latent_time_old == 0.0
+            logprior_old = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
+        elseif latent_time_old >= 2.0
+            logprior_old = -100000.0  
         else
-            diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
-        end #diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
+            logprior_old = log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
+        end 
+        diff_logprior = logprior_new - logprior_old       
     else
         latent_time_old = data.tempData[individual_update,1] - InfTime_old
         latent_time_new = data.tempData[individual_update,1] - InfTime_new 
@@ -298,14 +311,26 @@ function moveInfector()
                 error("Error: negative latent time!")
             end
         end
-        # check if latent time is 0, if yes, use a small value to calculate logprior to avoid log(0)
+        # if latent time is 0, use a small value to calculate logprior to avoid log(0)
+        # if latent time is greater than 2, we set logprior to a very small value -100000 
+        # to avoid accepting this move, since it is unlikely latent time > 2 for TB
         if latent_time_new == 0.0
-            diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
-        elseif latent_time_old == 0.0
-             diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
-        else
-            diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
+            logprior_new = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) 
+        elseif latent_time_new >= 2.0
+            logprior_new = -100000.0
+        else    
+            logprior_new = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) 
         end
+
+        if latent_time_old == 0.0
+            logprior_old = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
+        elseif latent_time_old >= 2.0
+            logprior_old = -100000.0  
+        else
+            logprior_old = log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
+        end 
+        diff_logprior = logprior_new - logprior_old
+     
         #diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
         diff_logprior += log(parameters.ContactProb[individual_update,infector_new]) - log(parameters.ContactProb[individual_update,infector_old])   
         diff_logprior += log(pdf(Geometric(parameters.removalRate/(parameters.infectionRate+parameters.removalRate)),parameters.Child_Vec[infector_new]+1)) +
