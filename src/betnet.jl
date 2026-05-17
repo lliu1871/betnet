@@ -32,6 +32,7 @@ module betnet
         infectionRate_priorMean::Float64
         removalRate::Float64
         latent_priorMean::Float64
+        latent_gamma_beta::Float64
         Net_infID::Vector{Int64}
         Child_Vec::Vector{Int64}
         InfectionPeriod::Matrix{Float64}
@@ -57,13 +58,14 @@ module betnet
             infectionRate_priorMean = 2.0
             removalRate = 0.1 
             latent_priorMean = 0.5
+            latent_gamma_beta = 300.0
             Net_infID = zeros(Int64, n)
             Child_Vec = zeros(Int64, n)
             InfectionPeriod = zeros(Float64, n, n)
             InfTime = zeros(Float64, n)
             ContactProb = zeros(Float64, n, n)
             genomeSize = 4411532
-            new(theta, theta_lb,theta_ub, theta_window, theta_priorMean, muRate,muRate_lb,muRate_ub,muRate_window, muRate_priorMean,infectionRate, infectionRate_lb,infectionRate_ub,infectionRate_window,infectionRate_priorMean,removalRate,latent_priorMean,Net_infID,Child_Vec, InfectionPeriod, InfTime, ContactProb, genomeSize)
+            new(theta, theta_lb,theta_ub, theta_window, theta_priorMean, muRate,muRate_lb,muRate_ub,muRate_window, muRate_priorMean,infectionRate, infectionRate_lb,infectionRate_ub,infectionRate_window,infectionRate_priorMean,removalRate,latent_priorMean,latent_gamma_beta,Net_infID,Child_Vec, InfectionPeriod, InfTime, ContactProb, genomeSize)
         end      
     end
 
