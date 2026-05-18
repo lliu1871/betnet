@@ -23,7 +23,7 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
     # a reasonable assumption is crucial for direct transmission inference, 
     # since the mutation rate is not identifiable from the data and 
     # it is highly correlated with theta
-    parameters.muRate_lb = 0.0 # lower bound of mu
+    parameters.muRate_lb = 3E-7 # lower bound of mu
     parameters.muRate_ub = 1E-6 # upper bound of mu
     parameters.muRate_window = (parameters.muRate_ub - parameters.muRate_lb)/10
     parameters.muRate = rand(Uniform(parameters.muRate_lb, parameters.muRate_ub))
@@ -37,8 +37,8 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
     parameters.infectionRate_priorMean = 1.0
 
     # latent period prior mean
-    parameters.latent_priorMean = 0.5 # mean of latent period ~ Chisq(0.5)
-    parameters.latent_gamma_beta = 300.0 # scale parameter of Gamma distribution
+    parameters.latent_priorMean = 0.5 # mean of latent period ~ Gamma distribution.
+    parameters.latent_gamma_beta = 0.5 # rate parameter of Gamma distribution. this should be a large value to avoid long incubation period.
 
     # initial infectors with minimum SNP difference
     parameters.Net_infID[1] = 1 # the first case is the index case
@@ -290,18 +290,14 @@ function moveInfector()
 
         # check if latent time is 0, if yes, use a small value to calculate logprior to avoid log(0)
         if latent_time_new == 0.0
-            #logprior_new = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) 
-            logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-10)) 
+            logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7)) 
         else    
-            #logprior_new = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) 
             logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), latent_time_new))
         end
 
         if latent_time_old == 0.0
-            #logprior_old = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
-            logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-10))  
+            logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7))  
         else
-            #logprior_old = log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
             logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), latent_time_old)) 
         end 
         diff_logprior = logprior_new - logprior_old       
@@ -314,26 +310,20 @@ function moveInfector()
             end
         end
         # if latent time is 0, use a small value to calculate logprior to avoid log(0)
-        # if latent time is greater than 2, we set logprior to a very small value -100000 
-        # to avoid accepting this move, since it is unlikely latent time > 2 for TB
+        # we use Gamma distribution with a large scale parameter to minimize the probability of long incubation period 
         if latent_time_new == 0.0
-            #logprior_new = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) 
-            logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-10)) 
+            logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7)) 
         else    
-            #logprior_new = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) 
             logprior_new = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), latent_time_new)) 
         end
 
         if latent_time_old == 0.0
-            #logprior_old = log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10))
-            logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-10)) 
+            logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7)) 
         else
-            #logprior_old = log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
             logprior_old = log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), latent_time_old)) 
         end 
         diff_logprior = logprior_new - logprior_old
      
-        #diff_logprior = log(pdf(Chisq(parameters.latent_priorMean), latent_time_new)) - log(pdf(Chisq(parameters.latent_priorMean), latent_time_old))
         diff_logprior += log(parameters.ContactProb[individual_update,infector_new]) - log(parameters.ContactProb[individual_update,infector_old])   
         diff_logprior += log(pdf(Geometric(parameters.removalRate/(parameters.infectionRate+parameters.removalRate)),parameters.Child_Vec[infector_new]+1)) +
                      log(pdf(Geometric(parameters.removalRate/(parameters.infectionRate+parameters.removalRate)),parameters.Child_Vec[infector_old]-1)) -
@@ -391,15 +381,14 @@ function mcmcAlgorithm(outputfile::String)
                 error("Error: negative latent time!")
             end
         end
-        # if latent_time == 0, we use a small value 1.0e-10 to calculate the logprior to avoid log(0)
+        # if latent_time == 0.0, we use a small value 1.0e-7 to calculate the logprior to avoid log(0)
         if(latent_time == 0.0)
-            mcmc.logPrior += log(pdf(Chisq(parameters.latent_priorMean), 1.0e-10)) - log(cdf(Chisq(parameters.latent_priorMean), 1.0e-10)) + log(parameters.ContactProb[infID,j])
+            mcmc.logPrior += log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7)) - log(cdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), 1.0e-7)) + log(parameters.ContactProb[infID,j])
         else
-            mcmc.logPrior += log(pdf(Chisq(parameters.latent_priorMean), latent_time)) - log(cdf(Chisq(parameters.latent_priorMean), parameters.InfectionPeriod[infID,j])) + log(parameters.ContactProb[infID,j])
-        end      
-        #mcmc.logPrior += log(pdf(Chisq(parameters.latent_priorMean), latent_time)) - log(cdf(Chisq(parameters.latent_priorMean), parameters.InfectionPeriod[infID,j])) + log(parameters.ContactProb[infID,j])
+            mcmc.logPrior += log(pdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), latent_time)) - log(cdf(Gamma(parameters.latent_priorMean*parameters.latent_gamma_beta,1/parameters.latent_gamma_beta), parameters.InfectionPeriod[infID,j])) + log(parameters.ContactProb[infID,j])
+        end    
     end
-    
+
     for round in 1:mcmc.numIter       
         r_random = rand()    
         if r_random <= 0.1
