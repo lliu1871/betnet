@@ -38,7 +38,7 @@ function Initialization(; genomeSize::Int64, itr_MCMC::Int64, burn_in::Int64, su
 
     # latent period prior mean
     parameters.latent_priorMean = 0.5 # mean of latent period ~ Gamma distribution.
-    parameters.latent_gamma_beta = 0.5 # rate parameter of Gamma distribution. this should be a large value to avoid long incubation period.
+    parameters.latent_gamma_beta = 0.5 # rate parameter of Gamma distribution and 0.5 corresponds to chisquare distribution. 
 
     # initial infectors with minimum SNP difference
     parameters.Net_infID[1] = 1 # the first case is the index case
