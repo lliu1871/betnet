@@ -38,7 +38,10 @@ The input datasets time_real_data.csv (temporal data) and SNP_real_data.csv (SNP
 
 ## Output
 In the MCMC output file, the first row contains columns called "iteration",	"logLikelihood", "logPrior", "theta", "mutation_rate", "infection_rate", and each remaining column corresponds to one individual in your dataset. Inside each column, the value = ID of the inferred infector at that MCMC iteration. Since this varies by iteration, you can compute the  posterior probability that A infected B and thereafter find the most likely infector of each case.
+The MCMC output can be summarized by the function summary_betnet in the package [transNetwork](https://github.com/lliu1871/transNetwork).
 
+## Important note
+1. An accurate estimate of the mutation rate is essential for identifying direct transmissions. If an appropriate range of the mutation rate is available, it can be used to define the lower bound (parameters.muRate_lb) and upper bound (parameters.muRate_ub) of the mutation rate in betnet2.0.jl.
 
 ## Resources
 - Simulation: The R package [transNetwork](https://github.com/lliu1871/transNetwork) provide a unified framework for simulating, summarizing, and visualizing infectious disease transmission networks using genomic and epidemiological data.
